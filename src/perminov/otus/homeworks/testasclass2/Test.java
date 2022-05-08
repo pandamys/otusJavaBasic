@@ -3,7 +3,8 @@ package perminov.otus.homeworks.testasclass2;
 public class Test {
     public static void main(String[] args) {
         int answerUser, countCorrectAnswers = 0;
-        UserInteraction userInteraction = new UserInteraction();
+        //ConsoleUserInteraction consoleUserInteraction = new ConsoleUserInteraction();
+        UpperCaseConsoleUserInteraction consoleUserInteraction = new UpperCaseConsoleUserInteraction();
         String[][][] questions = {
                 {{"Какая столица России?"},{"Москва","Пермь","Воронеж"}, {"1"}},
                 {{"Куда впадает Волга?"},{"Черное море","Тихий океан","Каспийское море"},{"3"}},
@@ -11,16 +12,16 @@ public class Test {
         };
 
         TestElement[] test = createTest(questions);
-        userInteraction.startTest();
+        consoleUserInteraction.startTest();
         for (TestElement testElement: test){
-            userInteraction.printQuestion(testElement);
-            userInteraction.printAnswer(testElement);
-            answerUser = userInteraction.getAnswer();
+            consoleUserInteraction.printQuestion(testElement);
+            consoleUserInteraction.printAnswer(testElement);
+            answerUser = consoleUserInteraction.getAnswer();
             if (CheckAnswer.check(testElement, answerUser)){
                 countCorrectAnswers++;
             }
         }
-        userInteraction.printResult(countCorrectAnswers);
+        consoleUserInteraction.printResult(countCorrectAnswers);
     }
 
     public static TestElement[] createTest(String[][][] questions){
