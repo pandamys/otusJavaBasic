@@ -1,9 +1,9 @@
 package perminov.otus.homeworks.testasclass2;
 
-public class TestElement {
-    private String question;
-    private String[] answers;
-    private Integer correctAnswer;
+public final class TestElement {
+    private final String question;
+    private final String[] answers;
+    private final Integer correctAnswer;
 
     public TestElement(String question, String[] answers, Integer correctAnswer){
         this.question = question;
@@ -16,7 +16,7 @@ public class TestElement {
     }
 
     public String[] getAnswers() {
-        return answers;
+        return answers.clone();
     }
 
     public Integer getCorrectAnswer() {
