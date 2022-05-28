@@ -13,13 +13,13 @@ public class ConsoleUserInteraction implements UserInteraction {
     }
 
     public void printQuestion(TestElement test){
-        System.out.println(String.format("<--- Вопрос: %s --->", test.getQuestion()));
+        System.out.printf("<--- Вопрос: %s --->%n", test.getQuestion());
     }
 
     public void printAnswer(TestElement test){
         String[] answers = test.getAnswers();
         for (int i = 0; i < answers.length; i++) {
-            System.out.println(String.format("%d. %s", i + 1, answers[i]));
+            System.out.printf("%d. %s%n", i + 1, answers[i]);
         }
     }
 
@@ -30,6 +30,6 @@ public class ConsoleUserInteraction implements UserInteraction {
     }
 
     public void printResult(Integer i){
-        System.out.println(String.format("Количество правильных ответов: %s", i));
+        System.out.printf("Количество правильных ответов: %s%n", i);
     }
 }
