@@ -1,10 +1,11 @@
 package perminov.otus.homeworks.collections;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Client {
     private final String clientName;
-    private Integer age;
+    private final Integer age;
     private final ArrayList<Account> accounts = new ArrayList<>();
 
     public Client(String clientName, Integer age, int[] numbers){
@@ -15,8 +16,9 @@ public class Client {
         }
     }
 
-    public Client(String clientName) {
+    public Client(String clientName, Integer age) {
         this.clientName = clientName;
+        this.age = age;
     }
 
     public void addNewAccount(Integer number){
@@ -37,7 +39,20 @@ public class Client {
 
     @Override
     public boolean equals(Object obj){
-        Client temp = (Client) obj;
-        return obj != null && temp.clientName.equals(this.clientName);
+        System.out.printf("Сравение двух объектов %s - %s%n", this, obj);
+
+        if (this == obj){ return true;}
+
+        if (obj instanceof Client){
+            Client temp = (Client) obj;
+            return temp.clientName.equals(this.clientName) && temp.age.equals(this.age);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientName, age);
     }
 }
