@@ -1,6 +1,6 @@
 package perminov.otus.homeworks.testasclass2;
 
-public final class TestElement {
+public class TestElement {
     private final String question;
     private final String[] answers;
     private final Integer correctAnswer;
