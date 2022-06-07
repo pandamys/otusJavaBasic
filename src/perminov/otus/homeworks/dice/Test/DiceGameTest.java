@@ -13,10 +13,11 @@ public class DiceGameTest {
     public void testNumberRandom(){
         String scenario = "Тест выпавших костей: ";
         int r;
+        DiceImpl dice = new DiceImpl();
 
         try {
             for (int i = 0; i < 30; i++) {
-                r = new DiceImpl().roll();
+                r = dice.roll();
                 if (r < 1 || r > 6) {
                     throw new Throwable("Ошибка");
                 }
