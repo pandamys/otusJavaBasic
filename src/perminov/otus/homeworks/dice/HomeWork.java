@@ -19,6 +19,9 @@ public class HomeWork {
         DiceGameTest test = new DiceGameTest();
         test.testNumberRandom();
         test.testOutput();
+        test.testNull();
+        test.testWinner();
+        test.testDraw();
     }
     
 }
