@@ -1,0 +1,29 @@
+.table-students {
+    border-collapse: collapse;
+    border: 3px solid grey;
+    width: 50%;
+    margin: 10px;
+}
+
+th {
+    border: 1px solid grey;
+}
+
+td {
+    border: 1px solid grey;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.field label {
+    display: block;
+    float: left;
+    width: 70px;
+    height: 15px;
+}

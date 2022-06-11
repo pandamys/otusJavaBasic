@@ -1,0 +1,61 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/script.js"></script>
+    <title>Список студентов</title>
+</head>
+<body>
+    <table class="table-students" id="table-students">
+        <thead>
+            <tr>
+                <th>
+                    ФИО
+                </th>
+                <th>
+                    Пол
+                </th>
+                <th>
+                    Дата рождения
+                </th>
+                <th>
+                    Возраст
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-right">
+                    Средний возраст
+                </td>
+                <td colspan="2" class="text-center">
+                    Данных нет
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Добавить студента</h3>
+    <form action="" method="post">
+        <div class="field">
+            <label for="name">ФИО</label>
+            <input type="text" id="name" name="name" required/>
+        </div>
+        <div class="field">
+        <label for="sex">Пол</label>
+        <select id="sex" required>
+            <option>Мужчина</option>
+            <option>Женщина</option>
+        </select>
+        </div>
+        <div class="field">
+            <label for="birthday">Дата рождения</label>
+            <input type="date" id="birthday" required/>
+        </div>
+        <input type="button" id="add-student" value="Добавить">
+    </form>
+</body>
+</html>
