@@ -9,7 +9,7 @@ public class PriceInWords {
         ConvertNumberToString cnt = new ConvertNumberToString();
         String result;
 
-        currency = terminal.readConsole("Введите валюту");
+        currency = "рубли";//terminal.readConsole("Введите валюту");
         terminal.showCurrency(currency);
         try {
             String line = terminal.readConsole("Введите только цифры");
