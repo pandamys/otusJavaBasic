@@ -21,8 +21,13 @@ public class ConvertNumberToString implements Converter{
         formsCurrency = getDeclensionCurrency(currency);
 
         if (currency.equalsIgnoreCase("рубли")){
-            if (number > 20){
-                number = getLastNumber(number);
+            if (number > 20 && number < 100){
+                number = getLastNumber(number, 10);
+            } else {
+                number = getLastNumber(number, 100);
+                if (number > 20){
+                    number = getLastNumber(number, 10);
+                }
             }
 
             if (number == 0 || number >= 5 && number <= 20){
@@ -37,27 +42,35 @@ public class ConvertNumberToString implements Converter{
         return null;
     }
 
-    public Integer getLastNumber(Integer i){
-        return i%10;
+    public Integer getLastNumber(Integer i, Integer divider){
+        return i % divider;
     }
 
     public String calculatePartOfNumber(Integer number){
         String numberStr;
-        if (number > 0 && number < 100) {
+        if (number > 0 && number < 1000) {
             numberStr = convertToString(number);
-        } else if (number >= 100 && number < 1000){
-            numberStr = "";
-            Integer[] partsNumber = new Integer[]{number, number % 100};
-            for (Integer part: partsNumber){
-                numberStr += convertToString(part) + " ";
-            }
         } else if (number >= 1000 && number < 1000000){
+            String thousand;
             Integer countThousand = number / 1000;
-            numberStr = convertToString(countThousand) + getDeclensionThousand(countThousand) + calculatePartOfNumber(number % 1000);
+            thousand = replaceThousand(convertToString(countThousand));
+            numberStr = thousand + getDeclension(countThousand, 1000) + calculatePartOfNumber(number % 1000);
+        } else if (number >= 1000000 && number < 1000000000){
+            Integer countMillion = number / 1000000;
+            numberStr = convertToString(countMillion) + getDeclension(countMillion, 1000000) + calculatePartOfNumber(number % 1000000);
         } else {
             numberStr = "";
         }
         return numberStr;
+    }
+
+    public String replaceThousand(String thousand){
+        if (thousand.contains("один")){
+            thousand = thousand.replace("один", "одна");
+        } else if (thousand.contains("два")){
+            thousand = thousand.replace("два", "две");
+        }
+        return thousand;
     }
 
     public String convertToString(Integer number){
@@ -69,21 +82,25 @@ public class ConvertNumberToString implements Converter{
         } else if (number > 10 && number < 20){
             formNumber = new String[]{"", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать",
                     "семнадцать", "восемнадцать", "девятнадцать"};
-            s = formNumber[getLastNumber(number)];
+            s = formNumber[getLastNumber(number, 10)];
         } else if (number >= 20 && number < 100){
             formNumber = new String[]{"","двадцать","тридцать","сорок","пятьдесят","шестьдесят","семьдесят","восемьдесят", "девяносто"};
-            if (number % 10 == 0) {
-                number = number / 10 - 1;
-                s = formNumber[number];
-            } else {
-                s = formNumber[number / 10 - 1] + " " + convertToString(number % 10);
-            }
+            s = calculatePartNumber(number, 10, formNumber);
         } else if (number >= 100 && number < 1000){
             formNumber = new String[]{"сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"};
-            number = number / 100 - 1;
-            s = formNumber[number];
+            s = calculatePartNumber(number, 100, formNumber);
         }
+        return s;
+    }
 
+    public String calculatePartNumber(Integer number, Integer divider, String[] formNumber){
+        String s;
+        if (number % divider == 0) {
+            number = number / divider - 1;
+            s = formNumber[number];
+        } else {
+            s = formNumber[number / divider - 1] + " " + convertToString(number % divider);
+        }
         return s;
     }
 
@@ -97,20 +114,29 @@ public class ConvertNumberToString implements Converter{
         return form;
     }
 
-    public String getDeclensionThousand(Integer countThousand){
-        String form;
+    public String getDeclension(Integer count, Integer type){
+        String form = " ";
 
-
-        if (countThousand == 1){
-            form = " тысяча ";
-        } else if (countThousand > 1 && countThousand < 5) {
-            form = " тысячи ";
-        } else if (countThousand >= 5 && countThousand <= 20){
-            form = " тысяч ";
-        } else if (countThousand > 20) {
-            form = getDeclensionThousand(countThousand % 10);
-        } else {
-            form = " ";
+        if (count == 1){
+            if (type == 1000) {
+                form = " тысяча ";
+            } else if (type == 1000000){
+                form = " миллион ";
+            }
+        } else if (count > 1 && count < 5) {
+            if (type == 1000) {
+                form = " тысячи ";
+            } else if (type == 1000000){
+                form = " миллиона ";
+            }
+        } else if (count >= 5 && count <= 20 || count == 0){
+            if (type == 1000) {
+                form = " тысяч ";
+            } else if (type == 1000000){
+                form = " миллионов ";
+            }
+        } else if (count > 20) {
+            form = getDeclension(count % 10, type);
         }
         return form;
     }
