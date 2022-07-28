@@ -7,6 +7,10 @@ public class PriceInWords {
     public static void main(String[] args) {
         Terminal terminal = new Terminal();
         ConvertNumberToString cnt = new ConvertNumberToString();
+        startConverter(cnt, terminal);
+    }
+
+    public static void startConverter(Converter converter, ReadConsole terminal){
         String result;
 
         currency = "рубли";//terminal.readConsole("Введите валюту");
@@ -15,7 +19,7 @@ public class PriceInWords {
             String line = terminal.readConsole("Введите только цифры");
             number = Integer.parseInt(line);
         } catch (NumberFormatException e){System.err.println("Введены не только цифры");}
-        result = cnt.convert(currency, number);
+        result = converter.convert(currency, number);
         terminal.showResult(result);
         terminal.close();
     }
