@@ -13,7 +13,7 @@ public class PriceInWords {
     public static void startConverter(Converter converter, ReadConsole terminal){
         String result;
 
-        currency = "рубли";//terminal.readConsole("Введите валюту");
+        currency = terminal.getCurrency();
         terminal.showCurrency(currency);
         try {
             String line = terminal.readConsole("Введите только цифры");

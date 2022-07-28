@@ -1,6 +1,6 @@
 package perminov.otus.homeworks.finalwork;
 
-public class ConvertNumberToString implements Converter{
+public class ConvertNumberToString implements Converter {
 
     @Override
     public String convert(String currency, Integer number) {
