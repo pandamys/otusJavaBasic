@@ -20,7 +20,7 @@ public class ConvertNumberToString implements Converter {
         String form = null;
         formsCurrency = getDeclensionCurrency(currency);
 
-        if (currency.equalsIgnoreCase("рубли")){
+        if (formsCurrency != null){
             if (number > 20 && number < 100){
                 number = getLastNumber(number, 10);
             } else {
@@ -106,10 +106,16 @@ public class ConvertNumberToString implements Converter {
 
     public String[] getDeclensionCurrency(String currency){
         String[] form;
-        if (currency.equalsIgnoreCase("рубли")){
-            form = new String[]{"рубль","рубля","рублей"};
-        } else {
-            form = null;
+        switch (currency.toLowerCase()){
+            case "рубль":
+                form = new String[]{"рубль","рубля","рублей"};
+                break;
+            case "доллар":
+                form = new String[]{"доллар","доллара","долларов"};
+                break;
+            default:
+                form = null;
+                break;
         }
         return form;
     }
