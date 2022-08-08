@@ -15,12 +15,14 @@ public class ConvertNumberToString implements Converter {
         return resultString;
     }
 
-    public String getFormCurrency(String currency, Integer number){
+    public String getFormCurrency(String currencyName, Integer number){
         String[] formsCurrency;
         String form = null;
-        formsCurrency = getDeclensionCurrency(currency);
+        Currency currency;
+        currency = getCurrency(currencyName);
 
-        if (formsCurrency != null){
+        if (currency != null){
+            formsCurrency = currency.getForms();
             if (number > 20 && number < 100){
                 number = getLastNumber(number, 10);
             } else {
@@ -104,20 +106,20 @@ public class ConvertNumberToString implements Converter {
         return s;
     }
 
-    public String[] getDeclensionCurrency(String currency){
-        String[] form;
-        switch (currency.toLowerCase()){
+    public Currency getCurrency(String currencyName){
+        Currency currency;
+        switch (currencyName.toLowerCase()){
             case "рубль":
-                form = new String[]{"рубль","рубля","рублей"};
+                currency = new Ruble(currencyName);
                 break;
             case "доллар":
-                form = new String[]{"доллар","доллара","долларов"};
+                currency = new Dollar(currencyName);
                 break;
             default:
-                form = null;
+                currency = null;
                 break;
         }
-        return form;
+        return currency;
     }
 
     public String getDeclension(Integer count, Integer type){
