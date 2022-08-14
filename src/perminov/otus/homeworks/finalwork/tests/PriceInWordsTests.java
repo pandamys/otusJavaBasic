@@ -1,8 +1,6 @@
 package perminov.otus.homeworks.finalwork.tests;
 
-import perminov.otus.homeworks.finalwork.ConvertNumberToString;
-import perminov.otus.homeworks.finalwork.PriceInWords;
-import perminov.otus.homeworks.finalwork.Terminal;
+import perminov.otus.homeworks.finalwork.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -57,6 +55,34 @@ public class PriceInWordsTests {
 
         String result = byteArrayOutputStream.toString();
         System.setOut(oldConsole);
+
+        if (expectResult.equals(result)){
+            System.out.println(scenario + "пройден");
+        } else {
+            System.err.println(scenario + "результат отличается от ожидаемого");
+        }
+    }
+
+    public void testConvertNumberToString(){
+        String scenario = "Тест проверки конвертации строки в цифры: ";
+        String expectResult = "двести тридцать пять тысяч сто семьдесят четыре";
+
+        ConvertNumberToString cnt = new ConvertNumberToString();
+        String result = cnt.calculatePartOfNumber(235174);
+
+        if (expectResult.equals(result)){
+            System.out.println(scenario + "пройден");
+        } else {
+            System.err.println(scenario + "результат отличается от ожидаемого");
+        }
+    }
+
+    public void testCorrectCurrencyForm(){
+        String scenario = "Тест правильного выбора падежа для валюты: ";
+        String expectResult = "рублей";
+
+        Ruble ruble = new Ruble("рубль");
+        String result = Currency.getFormCurrency(ruble, 17);
 
         if (expectResult.equals(result)){
             System.out.println(scenario + "пройден");

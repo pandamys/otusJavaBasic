@@ -6,5 +6,7 @@ public class StartTestsCode {
         priceInWordsTests.testOutput();
         priceInWordsTests.testNull();
         priceInWordsTests.testCurrency();
+        priceInWordsTests.testConvertNumberToString();
+        priceInWordsTests.testCorrectCurrencyForm();
     }
 }

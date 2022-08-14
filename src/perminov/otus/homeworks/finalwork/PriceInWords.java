@@ -1,7 +1,10 @@
 package perminov.otus.homeworks.finalwork;
 
+/**
+ * main entry point
+ */
 public class PriceInWords {
-    private static String currency;
+    private static Currency currency;
     private static Integer number;
 
     public static void main(String[] args) {
@@ -11,10 +14,11 @@ public class PriceInWords {
     }
 
     public static void startConverter(Converter converter, ReadConsole terminal){
-        String result;
+        String result, currencyName;
 
-        currency = terminal.getCurrency();
-        terminal.showCurrency(currency);
+        currencyName = terminal.getCurrency();
+        currency = Currency.getCurrency(currencyName);
+        terminal.showCurrency(currency.getName());
         try {
             String line = terminal.readConsole("Введите только цифры");
             number = Integer.parseInt(line);

@@ -10,7 +10,7 @@ public class TerminalTest implements ReadConsole {
 
     @Override
     public String getCurrency(){
-        return "рубли";
+        return "рубль";
     }
 
     @Override

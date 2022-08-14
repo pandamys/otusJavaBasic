@@ -17,7 +17,7 @@ public class Terminal implements ReadConsole {
     }
 
     public String getCurrency(){
-        return readConsole("Введите валюту");
+        return readConsole("Введите валюту " + Currency.getSupportedCurrency());
     }
 
     public void showCurrency(String currency){

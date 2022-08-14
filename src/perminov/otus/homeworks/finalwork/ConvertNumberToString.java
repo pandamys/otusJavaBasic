@@ -3,49 +3,14 @@ package perminov.otus.homeworks.finalwork;
 public class ConvertNumberToString implements Converter {
 
     @Override
-    public String convert(String currency, Integer number) {
-        String resultString, numberStr;
-        String form = getFormCurrency(currency, number);
-        if (form == null){
-            resultString = "Нет справочника для данной валюты!";
-        } else {
-            numberStr = calculatePartOfNumber(number);
-            resultString = numberStr.trim() + " " + form;
-        }
+    public String convert(Currency currency, Integer number) {
+        String resultString, numberStr, form;
+
+        form = Currency.getFormCurrency(currency, number);
+        numberStr = calculatePartOfNumber(number);
+        resultString = numberStr.trim() + " " + form;
+
         return resultString;
-    }
-
-    public String getFormCurrency(String currencyName, Integer number){
-        String[] formsCurrency;
-        String form = null;
-        Currency currency;
-        currency = getCurrency(currencyName);
-
-        if (currency != null){
-            formsCurrency = currency.getForms();
-            if (number > 20 && number < 100){
-                number = getLastNumber(number, 10);
-            } else {
-                number = getLastNumber(number, 100);
-                if (number > 20){
-                    number = getLastNumber(number, 10);
-                }
-            }
-
-            if (number == 0 || number >= 5 && number <= 20){
-                form = formsCurrency[2];
-            } else if (number == 1) {
-                form = formsCurrency[0];
-            } else if (number > 1 && number < 5){
-                form = formsCurrency[1];
-            }
-            return form;
-        }
-        return null;
-    }
-
-    public Integer getLastNumber(Integer i, Integer divider){
-        return i % divider;
     }
 
     public String calculatePartOfNumber(Integer number){
@@ -84,7 +49,7 @@ public class ConvertNumberToString implements Converter {
         } else if (number > 10 && number < 20){
             formNumber = new String[]{"", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать",
                     "семнадцать", "восемнадцать", "девятнадцать"};
-            s = formNumber[getLastNumber(number, 10)];
+            s = formNumber[Currency.getLastNumber(number, 10)];
         } else if (number >= 20 && number < 100){
             formNumber = new String[]{"","двадцать","тридцать","сорок","пятьдесят","шестьдесят","семьдесят","восемьдесят", "девяносто"};
             s = calculatePartNumber(number, 10, formNumber);
@@ -104,22 +69,6 @@ public class ConvertNumberToString implements Converter {
             s = formNumber[number / divider - 1] + " " + convertToString(number % divider);
         }
         return s;
-    }
-
-    public Currency getCurrency(String currencyName){
-        Currency currency;
-        switch (currencyName.toLowerCase()){
-            case "рубль":
-                currency = new Ruble(currencyName);
-                break;
-            case "доллар":
-                currency = new Dollar(currencyName);
-                break;
-            default:
-                currency = null;
-                break;
-        }
-        return currency;
     }
 
     public String getDeclension(Integer count, Integer type){
